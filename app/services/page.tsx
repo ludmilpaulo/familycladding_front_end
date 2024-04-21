@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Service } from '@/types';
 import { fetchServices } from '@/useAPI/fetchData';
 import ServiceCard from '@/components/ServiceCard';
+import { useRouter } from "next/navigation";
 
 const ServicesPage = () => {
   const [services, setServices] = useState<Service[]>([]);

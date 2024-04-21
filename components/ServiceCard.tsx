@@ -22,19 +22,28 @@ const ServiceCard: FC<ServiceCardProps> = ({ service }) => {
 
   return (
     <div className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
-      <div className="relative h-40 w-full">
-        <Image src={service.logo} alt={service.title} layout="fill" objectFit="cover" />
-      </div>
-      <div className="p-4">
-        <h3 className="text-xl font-semibold">{service.title}</h3>
-        <div className="mt-2">{truncatedDescription}</div>
-        {service.price && <p className="mt-2">Price: {service.price}</p>}
-        <Link href={`/services/${service.id}`}>
-          <span className="mt-4 inline-block bg-yellow-500 text-white px-4 py-2 rounded-lg transition-colors hover:bg-yellow-600">
+      <Link
+        href={{
+          pathname: "/serviceDetails",
+          query: {
+            title: service.title,
+            image: service.logo,
+            description: service.description,
+          },
+        }}
+      >
+        <div className="relative h-40 w-full">
+          <Image src={service.logo} alt={service.title} layout="fill" objectFit="cover" />
+        </div>
+        <div className="p-4">
+          <h3 className="text-xl font-semibold">{service.title}</h3>
+          <div className="mt-2">{truncatedDescription}</div>
+          
+          <button className="mt-4 inline-block bg-yellow-500 text-white px-4 py-2 rounded-lg transition-colors hover:bg-yellow-600">
             View Details
-          </span>
-        </Link>
-      </div>
+          </button>
+        </div>
+      </Link>
     </div>
   );
 };

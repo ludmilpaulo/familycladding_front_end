@@ -1,14 +1,16 @@
 "use client";
-import { AboutUsData, fetchAboutUsData } from '@/useAPI/fetchData';
+import { AboutUsData, fetchAboutUsData, submitContactForm } from '@/useAPI/fetchData';
 import React, { useEffect, useState } from 'react';
-import { FiUser, FiMail, FiMessageCircle } from 'react-icons/fi';
+import { FiUser, FiMail, FiMessageCircle, FiPhone } from 'react-icons/fi';
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
+    subject: '',
     name: '',
     email: '',
     company: '',
-    country: '',
+    address: '',
+    phone : '',
     message: '',
   });
 
@@ -26,10 +28,28 @@ const ContactForm: React.FC = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
-    // You can add your form submission logic here
+    
+    try {
+      // Call the submitContactForm function with the formData
+      await submitContactForm(formData);
+      console.log('Form submitted successfully', formData);
+      
+      // Reset the form data after successful submission
+      setFormData({
+        subject: '',
+        name: '',
+        email: '',
+        company: '',
+        address: '',
+        phone: '',
+        message: '',
+      });
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
 
   return (
@@ -37,6 +57,24 @@ const ContactForm: React.FC = () => {
       <div className="container mx-auto py-8">
         <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white rounded-lg shadow-lg p-8 mx-auto">
           <h2 className="text-3xl font-semibold mb-6 text-center">Let’s chat and get a quote!</h2>
+          <div className="mb-4">
+            <label className="block text-gray-800 text-sm font-semibold mb-2" htmlFor="name">
+              Subject
+            </label>
+            <div className="flex items-center">
+              <FiUser className="text-gray-600 mr-2" />
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                value={formData.subject}
+                onChange={handleChange}
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter your Subject"
+                required
+              />
+            </div>
+          </div>
           <div className="mb-4">
             <label className="block text-gray-800 text-sm font-semibold mb-2" htmlFor="name">
               Name
@@ -92,18 +130,36 @@ const ContactForm: React.FC = () => {
           </div>
           <div className="mb-4">
             <label className="block text-gray-800 text-sm font-semibold mb-2" htmlFor="country">
-              Country
+              Address
             </label>
             <div className="flex items-center">
               <FiUser className="text-gray-600 mr-2" />
               <input
                 type="text"
-                id="country"
-                name="country"
-                value={formData.country}
+                id="address"
+                name="address"
+                value={formData.address}
                 onChange={handleChange}
                 className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                placeholder="Enter your country"
+                placeholder="Enter your Address"
+              />
+            </div>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-800 text-sm font-semibold mb-2" htmlFor="phone">
+              Phone
+            </label>
+            <div className="flex items-center">
+              <FiPhone className="text-gray-600 mr-2" />
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                placeholder="Enter your phone number"
+                required
               />
             </div>
           </div>

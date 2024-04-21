@@ -30,10 +30,13 @@ export type { Project, ProjectImage };
 
 
 export interface ContactFormData {
-  subject: string;
-  from_email: string;
-  phone: string;
-  message: string;
+    subject : string;
+    name: string;
+    email: string;
+    company: string;
+    address: string;
+    phone : string;
+    message: string;
 }
 
 export interface WhyChooseUsData {

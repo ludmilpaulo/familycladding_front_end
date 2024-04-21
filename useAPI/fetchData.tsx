@@ -1,5 +1,5 @@
 
-export const baseAPI = "http://127.0.0.1:8000"
+export const baseAPI = "https://lopes.pythonanywhere.com"
 
 import axios from 'axios';
 import { ContactFormData, Service, TeamMemberData, WhyChooseUsData } from '@/types';
@@ -95,7 +95,7 @@ export const fetchWhyChooseUsData = async (): Promise<WhyChooseUsData> => {
 };
 
 export const submitContactForm = async (formData: ContactFormData): Promise<void> => {
-  await fetch('/contacts/', {
+  await fetch(`${baseAPI}/info/contacts/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
