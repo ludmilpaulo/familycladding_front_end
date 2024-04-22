@@ -1,7 +1,8 @@
 "use client";
-import { useState } from 'react';
-import { postTestimonial, Testimonial } from '@/useAPI/fetchData';
+import { useEffect, useState } from 'react';
+import { AboutUsData, fetchAboutUsData, postTestimonial, Testimonial } from '@/useAPI/fetchData';
 import { FaStar } from 'react-icons/fa';
+import { useRouter } from 'next/navigation';
 
 const AddTestimonialPage: React.FC = () => {
   const [author, setAuthor] = useState('');
@@ -10,6 +11,17 @@ const AddTestimonialPage: React.FC = () => {
   const [image, setImage] = useState<File | null>(null);
   const [content, setContent] = useState('');
   const [stars, setStars] = useState(0);
+  const [aboutUsData, setAboutUsData] = useState<AboutUsData | null>(null);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAboutUsData();
+      setAboutUsData(data);
+    };
+    fetchData();
+  }, []);
 
   const handleSubmit = async () => {
     const formData = new FormData();
@@ -24,7 +36,8 @@ const AddTestimonialPage: React.FC = () => {
   
     try {
       await postTestimonial(formData);
-      console.log('Testimonial added successfully');
+      alert('Testimonial added successfully');
+      router.push('/');
       // Redirect or show success message
     } catch (error) {
       console.error('Error adding testimonial:', error);
@@ -34,7 +47,7 @@ const AddTestimonialPage: React.FC = () => {
   
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#c19242] to-yellow-500">
+    <div className="flex justify-center items-center min-h-screen" style={{ backgroundImage: `url(${aboutUsData?.backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="bg-white p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl text-center text-gray-800 mb-4">Add Testimonial</h1>
         <div className="space-y-4">

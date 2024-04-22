@@ -12,7 +12,6 @@ export interface Service {
 
 // Define a type for project images
 interface ProjectImage {
-  id: number;
   image: string; // URL to the image
 }
 

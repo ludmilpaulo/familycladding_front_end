@@ -132,7 +132,7 @@ const Footer: React.FC = () => {
               {/* Remaining menu items */}
              
               <li><Link href=""><span>Terms of Use </span></Link></li>
-              <li><Link href=""><span>Disclaimer </span></Link></li>
+              <li><Link href="/testimonial"><span>Leave your testimonial </span></Link></li>
               <li><Link href="/contact"><span>Contact Us </span></Link></li>
             </ul>
           </div>

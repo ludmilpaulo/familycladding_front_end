@@ -1,17 +1,27 @@
 "use client";
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { fetchTeamData } from '@/useAPI/fetchData';
-import { TeamMemberData } from '@/types';
+import Link from 'next/link';
 import { FaFacebookSquare, FaTwitterSquare, FaInstagramSquare } from 'react-icons/fa';
+import { AboutUsData, fetchAboutUsData, fetchTeamData } from '@/useAPI/fetchData';
+import { TeamMemberData } from '@/types';
 
 const TeamSection: React.FC = () => {
   const [teamData, setTeamData] = useState<TeamMemberData[]>([]);
+  const [aboutUsData, setAboutUsData] = useState<AboutUsData | null>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetchAboutUsData();
+      setAboutUsData(data);
+    };
+    fetchData();
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await fetchTeamData();
+        const data = await fetchTeamData(); // Fetch your team data here
         setTeamData(data);
       } catch (error) {
         console.error('Error fetching Team data:', error);
@@ -25,39 +35,50 @@ const TeamSection: React.FC = () => {
   }
 
   return (
-    <section className="team-section">
-      <h2 className="text-3xl font-bold text-center mb-8">Our Team</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {teamData.map((member) => (
-          <div key={member.id} className="flex flex-col items-center">
-            <div className="w-full h-80 relative overflow-hidden rounded-lg">
-              <Image src={member.image} alt="profile-picture" layout="fill" objectFit="cover" />
+    <div className="mx-auto container px-6 xl:px-0 py-12" >
+      <div className="flex flex-col">
+        {teamData.map((member, i) => (
+          <div key={i} className="w-full">
+            <div className="h-80 relative">
+              <Image
+                src={member.image} // Ensure you have the correct path for the image
+                alt={member.name}
+                layout="fill"
+                objectFit="cover"
+              />
             </div>
-            <div className="mt-4 text-center">
+            <div className="pt-2 mb-2 flex items-center justify-between flex-col">
               <h3 className="text-xl font-bold text-gray-800">{member.name}</h3>
               <p className="text-base text-gray-600">{member.title}</p>
             </div>
-            <div className="flex justify-center mt-2 space-x-4">
+
+            <div className="flex justify-center space-x-4">
               {member.facebook && (
-                <a href={member.facebook} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:text-blue-700">
-                  <FaFacebookSquare className="text-2xl" />
-                </a>
+                <Link href={member.facebook} passHref>
+                  <span className="text-blue-500 hover:text-blue-700">
+                    <FaFacebookSquare className="text-2xl" />
+                  </span>
+                </Link>
               )}
               {member.twitter && (
-                <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:text-blue-600">
-                  <FaTwitterSquare className="text-2xl" />
-                </a>
+                <Link href={member.twitter} passHref>
+                  <span className="text-blue-400 hover:text-blue-600">
+                    <FaTwitterSquare className="text-2xl" />
+                  </span>
+                </Link>
               )}
               {member.instagram && (
-                <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="text-purple-600 hover:text-purple-800">
-                  <FaInstagramSquare className="text-2xl" />
-                </a>
+                <Link href={member.instagram} passHref>
+                  <span className="text-purple-600 hover:text-purple-800">
+                    <FaInstagramSquare className="text-2xl" />
+                  </span>
+                </Link>
               )}
             </div>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 };
 

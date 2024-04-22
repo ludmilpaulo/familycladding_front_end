@@ -2,10 +2,9 @@
 import React, { useEffect, useState } from 'react';
 import TeamSection from './TeamSection';
 import { AboutUsData, baseAPI, fetchAboutUsData } from '@/useAPI/fetchData';
-import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from "pure-react-carousel";
+
 import "pure-react-carousel/dist/react-carousel.es.css";
-import TestimonialCard from './TestimonialCard'; // Import the default export
-import { FaArrowAltCircleLeft, FaArrowAltCircleRight } from 'react-icons/fa';
+
 
 const AboutUsSection = () => {
   const [aboutUsData, setAboutUsData] = useState<AboutUsData | null>(null);
@@ -50,32 +49,7 @@ const AboutUsSection = () => {
           </div>
         </div>
       </div>
-      <CarouselProvider
-        naturalSlideWidth={100}
-        naturalSlideHeight={100} // Add naturalSlideHeight
-        isIntrinsicHeight={true}
-        totalSlides={2}
-      >
-        <Slider>
-          <Slide index={0}>
-            <TestimonialCard testimonialId={1} />
-          </Slide>
-          <Slide index={1}>
-            <TestimonialCard testimonialId={2} />
-          </Slide>
-        </Slider>
-        <div className="flex items-center mt-8">
-        <ButtonBack className="cursor-pointer" role="button" aria-label="previous slide">
-  {<FaArrowAltCircleLeft /> as any} 
-</ButtonBack>
-<ButtonNext className="cursor-pointer ml-2" role="button" aria-label="next slide">
-  {<FaArrowAltCircleRight /> as any} 
-</ButtonNext>
 
-
-
-        </div>
-      </CarouselProvider>
     </div>
   );
 };
