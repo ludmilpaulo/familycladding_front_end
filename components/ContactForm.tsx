@@ -2,6 +2,7 @@
 import { AboutUsData, fetchAboutUsData, submitContactForm } from '@/useAPI/fetchData';
 import React, { useEffect, useState } from 'react';
 import { FiUser, FiMail, FiMessageCircle, FiPhone } from 'react-icons/fi';
+import { useRouter } from 'next/navigation';
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -16,6 +17,8 @@ const ContactForm: React.FC = () => {
 
   const [aboutUsData, setAboutUsData] = useState<AboutUsData | null>(null);
 
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       const data = await fetchAboutUsData();
@@ -23,10 +26,10 @@ const ContactForm: React.FC = () => {
     };
     fetchData();
   }, []);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,11 +50,17 @@ const ContactForm: React.FC = () => {
         phone: '',
         message: '',
       });
+  
+      // Show alert to notify the user
+      alert('Your form has been submitted successfully. We will contact you within 24 hours.');
+  
+      // Redirect the user to '/'
+      router.push('/services');
     } catch (error) {
       console.error('Error submitting form:', error);
     }
   };
-
+  
   return (
     <div style={{ backgroundImage: `url(${aboutUsData?.backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="container mx-auto py-8">

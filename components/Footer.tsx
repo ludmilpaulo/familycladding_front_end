@@ -70,6 +70,7 @@ const Footer: React.FC = () => {
               </ul>
             </aside>
           </div>
+          
           <div className="col-span-12 md:col-span-3">
             <aside className="font-bold text-lg mb-4">
               <div>
@@ -99,9 +100,18 @@ const Footer: React.FC = () => {
               </div>
             </aside>
           </div>
+         
           {/* Remaining code for other sections */}
         </div>
+        <div className="flex justify-end w-full">
+      <Link href="/contact">
+        <button className="bg-yellow-500 w-full hover:bg-blue-700 text-white font-bold py-6 px-4 rounded">
+          Contact Us
+        </button>
+      </Link>
+    </div>
       </div>
+     
       <div className="bg-gray-900 mx-auto px-4 py-6">
         <div className="flex justify-between">
           <div className="flex items-center">
