@@ -1,4 +1,3 @@
-"use client";
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -35,19 +34,23 @@ const MainBanner: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      setCurrentImageIndex(prevIndex => (prevIndex + 1) % carouselData[0]?.image.length);
-    }, 5000); // Change image every 5 seconds
+    if (carouselData.length > 0 && carouselData[0].image.length > 0) {
+      const intervalId = setInterval(() => {
+        setCurrentImageIndex(prevIndex => (prevIndex + 1) % carouselData[0].image.length);
+      }, 5000); // Change image every 5 seconds
 
-    return () => clearInterval(intervalId); // Cleanup the interval on component unmount
+      return () => clearInterval(intervalId); // Cleanup the interval on component unmount
+    }
   }, [carouselData]);
+
+  const currentImage = carouselData.length > 0 && carouselData[0].image[currentImageIndex] ? carouselData[0].image[currentImageIndex].image : null;
 
   return (
     <section className="section main-banner" id="top" data-section="section1">
-      {carouselData.length > 0 && (
+      {currentImage && (
         <div className="relative w-screen h-screen">
           <Image
-            src={carouselData[0].image[currentImageIndex].image}
+            src={currentImage}
             alt="Banner Image"
             layout="fill"
             objectFit="cover"
@@ -84,7 +87,6 @@ const MainBanner: React.FC = () => {
                   Contact Us Now!
                 </button>
               </Link>
-
               </div>
             </div>
           </div>
