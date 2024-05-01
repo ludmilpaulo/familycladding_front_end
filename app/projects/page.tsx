@@ -6,19 +6,30 @@ import { fetchProjects } from '@/useAPI/fetchData';
 
 const Projects: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const data = await fetchProjects();
         setProjects(data);
+        setLoading(false);
+        setError(null);
       } catch (error) {
         console.error('Error fetching projects:', error);
+        setLoading(false);
+        setError('Failed to load projects. Please try again later.');
       }
     };
 
     fetchData();
   }, []);
+
+  if (error) return <div className="text-red-500 text-center">{error}</div>;
+  if (loading) return <div>Loading projects...</div>;
+  if (!loading && projects.length === 0) return <div>No projects found.</div>;
 
   return (
     <div className="container mx-auto px-4 py-8">
