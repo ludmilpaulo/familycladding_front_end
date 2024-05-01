@@ -47,7 +47,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
           ))}
         </Slider>
       </div>
-      <div className="p-4">
+      <div className="p-4 text-black">
         <h3 className="text-xl font-semibold">{project.name}</h3>
         <p className="mt-2">{truncatedDescription}</p>
         <p className="mt-2">Start Date: {project.start_date}</p>

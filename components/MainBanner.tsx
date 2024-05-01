@@ -23,7 +23,8 @@ const MainBanner: React.FC = () => {
   useEffect(() => {
     const fetchCarouselData = async () => {
       try {
-        const data = await CarouselListCreateAPIView();
+        const responseData = await CarouselListCreateAPIView();
+        const data: CarouselData[] = responseData as CarouselData[];
         setCarouselData(data);
       } catch (error) {
         console.error('Error fetching carousel data:', error);
@@ -35,7 +36,7 @@ const MainBanner: React.FC = () => {
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setCurrentImageIndex(prevIndex => (prevIndex + 1) % carouselData[0].image.length);
+      setCurrentImageIndex(prevIndex => (prevIndex + 1) % carouselData[0]?.image.length);
     }, 5000); // Change image every 5 seconds
 
     return () => clearInterval(intervalId); // Cleanup the interval on component unmount

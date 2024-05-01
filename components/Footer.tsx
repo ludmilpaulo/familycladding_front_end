@@ -4,6 +4,8 @@ import { FaFacebook, FaTwitter, FaWhatsapp, FaInstagram, FaMapMarker, FaPhone, F
 import Image from 'next/image';
 import Link from 'next/link';
 import { AboutUsData, fetchAboutUsData } from '@/useAPI/fetchData';
+import { motion } from 'framer-motion';
+import { SocialIcon } from 'react-social-icons';
 
 const Footer: React.FC = () => {
   const [aboutUsData, setAboutUsData] = useState<AboutUsData | null>(null);
@@ -30,44 +32,35 @@ const Footer: React.FC = () => {
                 </Link>
               )}
              
-              <ul className="flex space-x-4 mt-4">
-                <li>
-                  {aboutUsData?.facebook && (
-                    <Link href={aboutUsData.facebook}>
-                      <span className="cursor-pointer">
-                        <FaFacebook />
-                      </span>
-                    </Link>
-                  )}
-                </li>
-                <li>
-                  {aboutUsData?.twitter && (
-                    <Link href={aboutUsData.twitter}>
-                      <span className="cursor-pointer">
-                        <FaTwitter />
-                      </span>
-                    </Link>
-                  )}
-                </li>
-                <li>
-                  {aboutUsData?.whatsapp && (
-                    <Link href={aboutUsData.whatsapp}>
-                      <span className="cursor-pointer">
-                        <FaWhatsapp />
-                      </span>
-                    </Link>
-                  )}
-                </li>
-                <li>
-                  {aboutUsData?.instagram && (
-                    <Link href={aboutUsData.instagram}>
-                      <span className="cursor-pointer">
-                        <FaInstagram />
-                      </span>
-                    </Link>
-                  )}
-                </li>
-              </ul>
+             <motion.div
+              initial={{
+                x: -500,
+                opacity: 0,
+                scale: 0.5,
+              }}
+              animate={{
+                x: 0,
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{
+                duration: 2,
+              }}
+              className="flex flex-row items-center"
+            >
+              <>
+                {aboutUsData?.facebook && (
+                  <SocialIcon url={aboutUsData.facebook} />
+                )}
+                {aboutUsData?.whatsapp && (
+                  <SocialIcon url={aboutUsData.whatsapp} />
+                )}
+                {aboutUsData?.twitter && <SocialIcon url={aboutUsData.twitter} />}
+                {aboutUsData?.instagram && (
+                  <SocialIcon url={aboutUsData.instagram} />
+                )}
+              </>
+            </motion.div>
             </aside>
           </div>
           

@@ -1,6 +1,8 @@
 "use client";
 import React from 'react';
+import { SocialIcon } from "react-social-icons";
 
+import { motion, useAnimation } from "framer-motion";
 import { FaHome, FaCog, FaProjectDiagram, FaBloggerB, FaInfoCircle, FaPhone, FaMapMarker, FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaClock, FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -56,44 +58,35 @@ const Header: React.FC = () => {
             </div>
           </div>
           <div className="hidden md:flex items-center">
-            <ul className="flex space-x-4 text-[#FFFFFF]">
-              {headerData?.facebook && (
-                <li>
-                  <Link href={headerData?.facebook}>
-                    <span className="cursor-pointer">
-                      <FaFacebook  />
-                    </span>
-                  </Link>
-                </li>
-              )}
-              {headerData?.twitter && (
-                <li>
-                  <Link href={headerData?.twitter}>
-                    <span className="cursor-pointer">
-                      <FaTwitter  />
-                    </span>
-                  </Link>
-                </li>
-              )}
-              {headerData?.instagram && (
-                <li>
-                  <Link href={headerData?.instagram}>
-                    <span className="cursor-pointer">
-                      <FaInstagram  />
-                    </span>
-                  </Link>
-                </li>
-              )}
-              {headerData?.whatsapp && (
-                <li>
-                  <Link href={headerData?.whatsapp}>
-                    <span className="cursor-pointer">
-                      <FaWhatsapp  />
-                    </span>
-                  </Link>
-                </li>
-              )}
-            </ul>
+          <motion.div
+              initial={{
+                x: -500,
+                opacity: 0,
+                scale: 0.5,
+              }}
+              animate={{
+                x: 0,
+                opacity: 1,
+                scale: 1,
+              }}
+              transition={{
+                duration: 2,
+              }}
+              className="flex flex-row items-center"
+            >
+              <>
+                {headerData?.facebook && (
+                  <SocialIcon url={headerData.facebook} />
+                )}
+                {headerData?.whatsapp && (
+                  <SocialIcon url={headerData.whatsapp} />
+                )}
+                {headerData?.twitter && <SocialIcon url={headerData.twitter} />}
+                {headerData?.instagram && (
+                  <SocialIcon url={headerData.instagram} />
+                )}
+              </>
+            </motion.div>
           </div>
           <div className="ml-auto md:hidden">
             <button onClick={toggleMenu}>

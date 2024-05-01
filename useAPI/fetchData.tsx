@@ -13,15 +13,23 @@ export const fetchServices = async (): Promise<Service[]> => {
 };
 
 
-// Function to fetch all CarouselListCreateAPIView
-export const CarouselListCreateAPIView = async () => {
-  try {
-    const response = await axios.get(`${baseAPI}/info/carousels/`);
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching images:', error);
-    throw error;
-  }
+export const CarouselListCreateAPIView = () => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      fetch(`${baseAPI}/info/carousels/`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => resolve(data))
+        .catch(error => {
+          console.error('Error fetching images:', error);
+          reject(error);
+        });
+    }, 5000); // 5000 milliseconds = 5 seconds
+  });
 };
 
 
