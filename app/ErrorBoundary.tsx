@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error) {
-    return { hasError: true };
-  }
-
-  componentDidCatch(error, errorInfo) {
-    console.error('Error caught by error boundary:', error, errorInfo);
-  }
-
-  render() {
-    if (this.state.hasError) {
-      return <FallbackUI />;
-    }
-    return this.props.children;
-  }
+interface ErrorBoundaryProps {
+  errorCode: number | false;
+  stars: number | null;
+  children: React.ReactNode;
 }
+
+const ErrorBoundary: React.FC<ErrorBoundaryProps> = ({ children, errorCode, stars }) => {
+  if (errorCode && errorCode !== 0) {
+    return <div>Error {errorCode} occurred</div>; // Simple error display, adjust as needed
+  }
+
+  // If no error, render children
+  return <>{children}</>;
+};
 
 export default ErrorBoundary;

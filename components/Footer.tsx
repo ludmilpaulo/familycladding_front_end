@@ -1,11 +1,13 @@
 "use client";
 import { useEffect, useState } from 'react';
-import { FaFacebook, FaTwitter, FaWhatsapp, FaInstagram, FaMapMarker, FaPhone, FaEnvelope, FaHeart } from 'react-icons/fa';
+import { FaMapMarker, FaPhone, FaEnvelope, FaHeart } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
 import { AboutUsData, fetchAboutUsData } from '@/useAPI/fetchData';
 import { motion } from 'framer-motion';
 import { SocialIcon } from 'react-social-icons';
+import ErrorBoundary from '@/app/ErrorBoundary';
+//import ErrorBoundary from 'next/dist/client/components/error-boundary';
 
 const Footer: React.FC = () => {
   const [aboutUsData, setAboutUsData] = useState<AboutUsData | null>(null);
@@ -19,6 +21,7 @@ const Footer: React.FC = () => {
   }, []);
 
   return (
+    <ErrorBoundary errorCode={0} stars={null}>
     <footer className="text-white" style={{ backgroundImage: `url(${aboutUsData?.backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
       <div className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-12 gap-4">
@@ -132,6 +135,7 @@ const Footer: React.FC = () => {
         </div>
       </div>
     </footer>
+    </ErrorBoundary>
   );
 };
 
