@@ -1,9 +1,7 @@
 "use client";
 import React from 'react';
 import { SocialIcon } from "react-social-icons";
-
-import { motion, useAnimation } from "framer-motion";
-import { FaHome, FaCog, FaProjectDiagram, FaBloggerB, FaInfoCircle, FaPhone, FaMapMarker, FaFacebook, FaTwitter, FaInstagram, FaWhatsapp, FaClock, FaBars, FaTimes } from 'react-icons/fa';
+import { FaHome, FaCog, FaProjectDiagram, FaInfoCircle, FaPhone, FaMapMarker, FaClock, FaBars, FaTimes } from 'react-icons/fa';
 import Image from 'next/image';
 import Link from 'next/link';
 import { baseAPI } from '@/useAPI/fetchData';
@@ -17,7 +15,6 @@ interface HeaderData {
   twitter: string;
   instagram: string;
   logo: string;
-  backgroundImage: string;
 }
 
 const Header: React.FC = () => {
@@ -38,123 +35,88 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="w-full">
-      <div className="flex-1 bg-black mx-auto">
-        <div className="mx-4 md:mx-8 lg:mx-20 py-4 flex justify-between items-center">
-          <div className="flex items-center text-[#FFFFFF]">
-            <div className="flex flex-col items-start md:flex-row md:items-center md:space-x-4">
-              <span className="flex items-center" >
-                <FaPhone className="mr-1" />
-                {headerData?.phone}
-              </span>
-              <span className="flex items-center ml-0 md:ml-4" >
-                <FaMapMarker className="mr-1" />
-                {headerData?.address}
-              </span>
-              <span className="flex items-center ml-0 md:ml-4" >
-                <FaClock className="mr-1" />
-                {headerData?.born_date}
-              </span>
-            </div>
+    <header className="w-full bg-white shadow-md">
+      {/* Top Section */}
+      <div className="bg-gray-800 text-white py-2 md:py-3 shadow-lg">
+        <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+          {/* Contact Information */}
+          <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-6 text-sm md:text-base">
+            <span className="flex items-center">
+              <FaPhone className="mr-2 text-lg" />
+              {headerData?.phone}
+            </span>
+            <span className="flex items-center">
+              <FaMapMarker className="mr-2 text-lg" />
+              {headerData?.address}
+            </span>
+            <span className="flex items-center">
+              <FaClock className="mr-2 text-lg" />
+              {headerData?.born_date}
+            </span>
           </div>
-          <div className="hidden md:flex items-center">
-          <motion.div
-              initial={{
-                x: -500,
-                opacity: 0,
-                scale: 0.5,
-              }}
-              animate={{
-                x: 0,
-                opacity: 1,
-                scale: 1,
-              }}
-              transition={{
-                duration: 2,
-              }}
-              className="flex flex-row items-center"
-            >
-              <>
-                {headerData?.facebook && (
-                  <SocialIcon url={headerData.facebook} />
-                )}
-                {headerData?.whatsapp && (
-                  <SocialIcon url={headerData.whatsapp} />
-                )}
-                {headerData?.twitter && <SocialIcon url={headerData.twitter} />}
-                {headerData?.instagram && (
-                  <SocialIcon url={headerData.instagram} />
-                )}
-              </>
-            </motion.div>
+
+          {/* Social Media Icons */}
+          <div className="hidden md:flex items-center space-x-4">
+            {headerData?.facebook && <SocialIcon url={headerData.facebook} fgColor="#fff" style={{ height: 30, width: 30 }} />}
+            {headerData?.whatsapp && <SocialIcon url={headerData.whatsapp} fgColor="#fff" style={{ height: 30, width: 30 }} />}
+            {headerData?.twitter && <SocialIcon url={headerData.twitter} fgColor="#fff" style={{ height: 30, width: 30 }} />}
+            {headerData?.instagram && <SocialIcon url={headerData.instagram} fgColor="#fff" style={{ height: 30, width: 30 }} />}
           </div>
-          <div className="ml-auto md:hidden">
-            <button onClick={toggleMenu}>
-              {isMenuOpen ? <FaTimes className="text-white text-2xl" /> : <FaBars className="text-white text-2xl" />}
-            </button>
-          </div>
+
+          {/* Menu Toggle Button for Mobile (Moved to the Right) */}
+          <button onClick={toggleMenu} className="md:hidden text-white text-2xl focus:outline-none ml-auto">
+            {isMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
       </div>
-      <div className="mx-auto py-4" style={{ backgroundImage: `url(${headerData?.backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat' }}>
-        <div className="mx-4 md:mx-8 lg:mx-20 flex justify-between items-center">
-          {headerData?.logo && (
-            <Link href="/">
-              <span className="cursor-pointer">
-                <Image src={headerData.logo} alt="Logo" width={300} height={100} />
-              </span>
-            </Link>
-          )}
-          <div className="hidden md:flex items-center">
-            <ul className="flex text-[#FFFFFF] gap-4">
-              <li>
-                <Link href="/" className=" text-2xl flex items-center">
-                  <FaHome className="mr-1" />
-                  <span className="font-extrabold">Home</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-2xl flex items-center">
-                  <FaCog className="mr-1" />
-                  <span className="font-extrabold">Services</span>
-                </Link>
-              </li>
-              <li>
-                <Link href="/projects" className="text-2xl flex items-center">
-                  <FaProjectDiagram className="mr-1" />
-                  <span className="font-extrabold">Projects</span>
-                </Link>
-              </li>
-             
-              <li>
-                <Link href="/about" className="text-2xl flex items-center">
-                  <FaInfoCircle className="mr-1" />
-                  <span className="font-extrabold">About Us</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+
+      {/* Logo and Navigation Section */}
+      <div className="container mx-auto py-4 flex justify-between items-center">
+        {/* Logo */}
+        {headerData?.logo && (
+          <Link href="/">
+            <Image src={headerData.logo} alt="Logo" width={150} height={50} className="object-contain" />
+          </Link>
+        )}
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-8 text-gray-800 text-lg">
+          <Link href="/" className="hover:text-gray-600 transition-colors duration-300">
+            Home
+          </Link>
+          <Link href="/services" className="hover:text-gray-600 transition-colors duration-300">
+            Services
+          </Link>
+          <Link href="/projects" className="hover:text-gray-600 transition-colors duration-300">
+            Projects
+          </Link>
+          <Link href="/about" className="hover:text-gray-600 transition-colors duration-300">
+            About Us
+          </Link>
+        </nav>
       </div>
+
+      {/* Mobile Menu Side Drawer */}
+      <div className={`fixed top-0 left-0 h-full bg-gray-900 text-white w-64 transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out z-50`}>
+        <nav className="flex flex-col items-start p-6 space-y-4">
+          <Link href="/" className="text-white hover:text-gray-400 transition-colors duration-300" onClick={toggleMenu}>
+            Home
+          </Link>
+          <Link href="/services" className="text-white hover:text-gray-400 transition-colors duration-300" onClick={toggleMenu}>
+            Services
+          </Link>
+          <Link href="/projects" className="text-white hover:text-gray-400 transition-colors duration-300" onClick={toggleMenu}>
+            Projects
+          </Link>
+          <Link href="/about" className="text-white hover:text-gray-400 transition-colors duration-300" onClick={toggleMenu}>
+            About Us
+          </Link>
+        </nav>
+      </div>
+
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
-        <div className="bg-black text-white mx-auto py-4">
-          <div className="md:hidden">
-            <ul className="flex gap-4">
-              <li>
-                <Link href="/" className="text-white">Home</Link>
-              </li>
-              <li>
-                <Link href="/services" className="text-white">Services</Link>
-              </li>
-              <li>
-                <Link href="/projects" className="text-white">Projects</Link>
-              </li>
-              
-              <li>
-                <Link href="/about" className="text-white">About Us</Link>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <div className="fixed inset-0 bg-black opacity-50 z-40" onClick={toggleMenu}></div>
       )}
     </header>
   );
