@@ -50,8 +50,12 @@ const Header: React.FC = () => {
               {headerData?.address}
             </span>
             <span className="flex items-center">
+              {headerData?.born_date && (
+              <span className="flex items-center">
               <FaClock className="mr-2 text-lg" />
-              {headerData?.born_date}
+            {new Date().toLocaleDateString()}
+  </span>
+)}
             </span>
           </div>
 
@@ -64,6 +68,7 @@ const Header: React.FC = () => {
     fgColor="#fff"
     bgColor="#25D366"
     network="whatsapp"
+    style={{ height: 30, width: 30 }}
   />
 )}
 

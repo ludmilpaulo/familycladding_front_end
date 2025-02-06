@@ -56,31 +56,33 @@ const Footer: React.FC = () => {
             </div>
 
             {/* Office Address Section */}
-            <div>
-              <h3 className="font-bold text-lg mb-4">Office Address</h3>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <FaMapMarker className="mr-2 text-yellow-500" />
-                  <p>{aboutUsData?.address}</p>
-                </div>
-                <div className="flex items-center">
-                  <FaPhone className="mr-2 text-yellow-500" />
-                  <p>{aboutUsData?.phone}</p>
-                </div>
-                {aboutUsData?.whatsapp && (
-                  <div className="flex items-center">
-                    <FaPhone className="mr-2 text-yellow-500" />
-                    <Link href={aboutUsData.whatsapp}>
-                      <span className="hover:underline">WhatsApp Us</span>
-                    </Link>
-                  </div>
-                )}
-                <div className="flex items-center">
-                  <FaEnvelope className="mr-2 text-yellow-500" />
-                  <p>{aboutUsData?.email}</p>
-                </div>
-              </div>
-            </div>
+        <div>
+  <h3 className="font-bold text-lg mb-4">Office Address</h3>
+  <div className="space-y-3">
+    {/* Office Address */}
+    <div className="flex items-center">
+      <FaMapMarker className="mr-2 text-yellow-500" />
+      <p>49 Windsor Close, Maitland, CPT ZA</p>
+    </div>
+    
+    {/* Phone Number */}
+    <div className="flex items-center">
+      <FaPhone className="mr-2 text-yellow-500" />
+      <a href={`tel:${aboutUsData?.phone}`} className="hover:underline">
+        {aboutUsData?.phone}
+      </a>
+    </div>
+
+    {/* Email */}
+    <div className="flex items-center">
+      <FaEnvelope className="mr-2 text-yellow-500" />
+      <a href={`mailto:${aboutUsData?.email}`} className="hover:underline">
+        {aboutUsData?.email}
+      </a>
+    </div>
+  </div>
+</div>
+
 
             {/* Contact Button Section */}
             <div className="flex flex-col justify-between">
