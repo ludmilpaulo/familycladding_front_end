@@ -41,7 +41,19 @@ const Footer: React.FC = () => {
                 className="mt-6 flex space-x-4"
               >
                 {aboutUsData?.facebook && <SocialIcon url={aboutUsData.facebook} fgColor="#fff" bgColor="#1DA1F2" />}
-                {aboutUsData?.whatsapp && <SocialIcon url={aboutUsData.whatsapp} fgColor="#fff" bgColor="#25D366" />}
+               {aboutUsData?.whatsapp && (
+  <SocialIcon
+    url={
+      aboutUsData.whatsapp.includes("2773426058")
+        ? "https://wa.me/27734260258" // temporarily fixed the whatsapp number
+        : aboutUsData.whatsapp.replace('https://api.whatsapp.com/send?phone=+', 'https://wa.me/')
+    }
+    fgColor="#fff"
+    bgColor="#25D366"
+    network="whatsapp" // explicitly set network to 'whatsapp'
+  />
+)}
+
                 {aboutUsData?.twitter && <SocialIcon url={aboutUsData.twitter} fgColor="#fff" bgColor="#1DA1F2" />}
                 {aboutUsData?.instagram && <SocialIcon url={aboutUsData.instagram} fgColor="#fff" bgColor="#E1306C" />}
               </motion.div>
