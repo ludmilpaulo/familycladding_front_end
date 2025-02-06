@@ -50,7 +50,7 @@ const Footer: React.FC = () => {
     }
     fgColor="#fff"
     bgColor="#25D366"
-    network="whatsapp" // explicitly set network to 'whatsapp'
+    network="whatsapp"
   />
 )}
 
