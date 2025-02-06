@@ -64,7 +64,6 @@ const Header: React.FC = () => {
     fgColor="#fff"
     bgColor="#25D366"
     network="whatsapp"
-    style={{ height: 30, width: 30 }}
   />
 )}
 
