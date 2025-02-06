@@ -26,6 +26,7 @@ const Header: React.FC = () => {
       .then((response) => response.json())
       .then((data) => {
         setHeaderData(data[0]);
+         console.log("Header WhatsApp:", data[0].whatsapp);
       })
       .catch((error) => console.error('Error fetching data:', error));
   }, []);
@@ -58,7 +59,18 @@ const Header: React.FC = () => {
           {/* Social Media Icons */}
           <div className="hidden md:flex items-center space-x-4">
             {headerData?.facebook && <SocialIcon url={headerData.facebook} fgColor="#fff" style={{ height: 30, width: 30 }} />}
-            {headerData?.whatsapp && <SocialIcon url={headerData.whatsapp} fgColor="#fff" style={{ height: 30, width: 30 }} />}
+            {headerData?.whatsapp && (
+  <SocialIcon 
+    url={
+      headerData.whatsapp.includes("2773426058")
+        ? "https://wa.me/27734260258" // temporarily fixed the whatsapp number
+        : headerData.whatsapp.replace('https://api.whatsapp.com/send?phone=+', 'https://wa.me/')
+    }
+    fgColor="#fff"
+    style={{ height: 30, width: 30 }}
+  />
+)}
+
             {headerData?.twitter && <SocialIcon url={headerData.twitter} fgColor="#fff" style={{ height: 30, width: 30 }} />}
             {headerData?.instagram && <SocialIcon url={headerData.instagram} fgColor="#fff" style={{ height: 30, width: 30 }} />}
           </div>
