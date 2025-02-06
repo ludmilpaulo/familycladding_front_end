@@ -41,13 +41,9 @@ const Footer: React.FC = () => {
                 className="mt-6 flex space-x-4"
               >
                 {aboutUsData?.facebook && <SocialIcon url={aboutUsData.facebook} fgColor="#fff" bgColor="#1DA1F2" />}
-               {aboutUsData?.whatsapp && (
+    {aboutUsData?.whatsapp && (
   <SocialIcon
-    url={
-      aboutUsData.whatsapp.includes("2773426058")
-        ? "https://wa.me/27734260258" // temporarily fixed the whatsapp number
-        : aboutUsData.whatsapp.replace('https://api.whatsapp.com/send?phone=+', 'https://wa.me/')
-    }
+    url="https://wa.me/27734260258"
     fgColor="#fff"
     bgColor="#25D366"
     network="whatsapp"

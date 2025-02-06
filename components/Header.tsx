@@ -58,19 +58,16 @@ const Header: React.FC = () => {
           {/* Social Media Icons */}
           <div className="hidden md:flex items-center space-x-4">
             {headerData?.facebook && <SocialIcon url={headerData.facebook} fgColor="#fff" style={{ height: 30, width: 30 }} />}
-            {headerData?.whatsapp && (
+     {headerData?.whatsapp && (
   <SocialIcon
-    url={
-      headerData.whatsapp.includes("2773426058")
-        ? "https://wa.me/27734260258" // temporarily fixed the whatsapp number
-        : headerData.whatsapp.replace('https://api.whatsapp.com/send?phone=+', 'https://wa.me/')
-    }
+    url="https://wa.me/27734260258" 
     fgColor="#fff"
     bgColor="#25D366"
     network="whatsapp"
     style={{ height: 30, width: 30 }}
   />
 )}
+
 
 
             {headerData?.twitter && <SocialIcon url={headerData.twitter} fgColor="#fff" style={{ height: 30, width: 30 }} />}
