@@ -36,7 +36,6 @@ export const CarouselListCreateAPIView = () => {
 
 
 
-
 const fetchProjects = async (): Promise<Project[]> => {
   try {
     const response = await fetch(`${baseAPI}/project/projects/`);
@@ -44,12 +43,38 @@ const fetchProjects = async (): Promise<Project[]> => {
       throw new Error('Failed to fetch projects');
     }
     const data: Project[] = await response.json();
-    return data;
+
+    // Update the project name and description of each project
+    const updatedData = data.map((project, index) => ({
+      ...project,
+      name: index === 1 
+        ? "Tiling" // Change name of second project to Tiling
+        : project.name, // Keep name unchanged for other projects
+
+      description: index === 0
+        ? project.description
+            .replace("Brick works", "Brick work")
+            .replace("brickd", "Durable and precise brickwork for residential and commercial projects.")
+        : index === 1
+        ? project.description
+            .replace("tile", "Tiling")
+            .replace("porject", "Expert tiling services for stylish, durable, and high-quality finishes.")
+        : index === 2
+        ? "Professional wayside suspended ceiling installations for enhanced acoustics and aesthetics."
+        : index === 3
+          ? "Durable and precise brickwork for residential and commercial projects." // Fourth project
+        : project.description, // No changes for other projects
+    }));
+
+    return updatedData;
   } catch (error) {
     console.error('Error fetching projects:', error);
     return [];
   }
 };
+
+
+
 
 export { fetchProjects };
 

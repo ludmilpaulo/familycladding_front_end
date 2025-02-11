@@ -23,6 +23,7 @@ interface Project {
   start_date: string; // Assuming it's in ISO date string format (e.g., "2024-04-23")
   end_date: string; // Assuming it's in ISO date string format (e.g., "2024-04-30")
   pictures: ProjectImage[]; // Array of project images
+  category: string; // Added category property
 }
 
 export type { Project, ProjectImage };
