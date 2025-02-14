@@ -4,6 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FaFacebookSquare, FaTwitterSquare, FaInstagramSquare } from 'react-icons/fa';
 
+// TODO: @jinoveva - Move team data to an API service instead of hardcoding it.
+// Also, create TypeScript types and add error handling for failed API requests.
+
+
 const teamData = [
   {
     name: "Director",
